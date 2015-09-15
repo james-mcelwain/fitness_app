@@ -8,8 +8,6 @@ var getComments = function(activityId){
         if(err){
             console.log(err);
             next(err);
-        } else {
-            res.json(comment);
         }
     })
 };

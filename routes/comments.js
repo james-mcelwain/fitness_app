@@ -14,14 +14,15 @@ router.get('/:activity_id', function(req, res, next) {
 /* POST route */
 // post comment to activity
 router.post('/:activity_id', function(req, res, next) {
-    createComment(req.params.activity_id, req.body);
+    console.log(req.body);
+    createComment(req.body.userId, req.params.activity_id, req.body.comment);
     res.sendStatus(200);
 });
 
 /* DELETE route */
 // delete comment from activity
-router.delete('/:activity_id', function(req, res, next) {
-    deleteComment(req.params.activity_id);
+router.delete('/:comment_id', function(req, res, next) {
+    deleteComment(req.params.comment_id);
     res.sendStatus(200);
 });
 

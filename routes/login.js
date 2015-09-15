@@ -8,10 +8,11 @@ router.get('/', function(req, res, next){
 });
 
 router.post('/',
-  passport.authenticate('local', {
-    successRedirect: '/users',
-    failureRedirect: '/',
-    failureFlash: true
-});
+  passport.authenticate('local'), function(req, res) {
+    res.send({
+      username: req.user.username,
+      blocked: req.user.blocked
+    })
+  });
 
 module.exports = router;

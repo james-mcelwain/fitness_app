@@ -19,7 +19,7 @@ router.post('/', function(req, res, next){
           next(err);
         }
      } else {
-       res.redirect('/login');
+       res.sendStatus(200);
      }
    });
 });

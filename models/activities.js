@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema();
 
 var ActivitiesSchema = new Schema({
-    user_id: String,
+    user_id: {type: String, required: true},
     duration: Number,
     distance: Number,
     effort: String,

@@ -1,8 +1,8 @@
 var Comments = require('../models/comments');
 
-var delete = function(req, res, next){
+var delete = function(commentId){
 
-    Comments.findByIdAndRemove(req.params.id, function(err, comment){
+    Comments.findByIdAndRemove(commentId, function(err, comment){
         if(err){
             console.log(err);
             next(err);

@@ -1,7 +1,7 @@
 var Comments = require('../models/comments');
 
-var create = function(req, res, next){
-    var comment = new Comments(req.body);
+var create = function(userId, activityId, comment){
+    var comment = new Comments({user_id: userId, activity_id: activityId, comment: comment});
 
     comment.save(function(err){
         if(err){

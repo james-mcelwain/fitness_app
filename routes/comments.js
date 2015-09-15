@@ -1,20 +1,23 @@
 var express = require('express');
 var router = express.Router();
+var createComment = require('./queries/createComment.js');
+var deleteComment = require('./queries/deleteComment.js');
 
 /* GET route */
 // get comments for activity
-router.get('/', function(req, res, next) {
+router.get('/:activity_id', function(req, res, next) {
     res.json('Comments')
 });
 
 /* POST route */
 // post comment to activity
-router.post('/', function(req, res, next) {
-    res.json('Comment posted')
+router.post('/:activity_id', function(req, res, next) {
+    createComment(req.params.activity_id, req.body);
+    res.sendStatus(200);
 });
 
 /* DELETE route */
-router.delete('/', function(req, res, next) {
+router.delete('/:activity_id', function(req, res, next) {
 
     // delete comment from activity by activity user
     if (user){

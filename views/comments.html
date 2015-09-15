@@ -6,8 +6,11 @@
 </head>
 <body>
     <div ng-controller="fitnessController" class="comments">
-        <div data-id="{{}}" class="commentList" ng-repeat="comment in comments">
-            <p>{{username}}</p>
+        <div  class="commentList" ng-repeat="comment in comments">
+            <p ng-mouseover="showBlock()" ng-mouseleave="hideBlock()">{{username}}</p>
+            <div class="block" ng-show="blockVisible">
+                <button ng-click="blockUser({{id}})">BLOCK</button>
+            </div>
             <p>{{date}}</p>
             <p>{{comment}}</p>
             <button ng-click="deleteComment({{id}})">DELETE</button>

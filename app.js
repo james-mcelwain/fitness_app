@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+//passport and mongoose modules that are being used for login and registering
 var passport = require('passport');
 var session = require('express-session');
 var localStrategy = require('passport-local');
@@ -11,11 +12,12 @@ var flash = require('connect-flash');
 var Users = require('./models/user');
 var mongoose = require('mongoose');
 
+//routes for login and registering
 var routes = require('./routes/index');
-var users = require('./routes/users');
 var register = require('./routes/register');
 var login = require('./routes/login');
 
+//connect to mongo/account_info
 var mongoURI = 'mongodb://localhost:27017/account_info';
 var MongoDB = mongoose.connect(mongoURI).connection;
 MongoDB.on('error', function (err) {
@@ -27,6 +29,7 @@ MongoDB.once('open', function () {
 
 var app = express();
 
+//passport session set up, init, and flash for login
 app.use(session({
   secret: 'SoSupersecret',
   key: 'user',
@@ -38,6 +41,7 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
+//local strategy for passport
 passport.use('local', new localStrategy({
        passReqToCallback : true,
        usernameField: 'username'
@@ -57,7 +61,7 @@ function(req, username, password, done){
        });
    });
 }));
-
+//serializeUser and deserializeUser for login stuff
 passport.serializeUser(function(user, done){
   done(null, user.id);
 });
@@ -83,7 +87,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/register', register);
 app.use('/login', login)
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

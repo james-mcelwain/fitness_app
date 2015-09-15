@@ -1,6 +1,6 @@
 var Comments = require('../models/comments');
 
-var create = function(userId, activityId, comment){
+var createComment = function(userId, activityId, comment){
     var comment = new Comments({user_id: userId, activity_id: activityId, comment: comment});
 
     comment.save(function(err){
@@ -14,4 +14,4 @@ var create = function(userId, activityId, comment){
 };
 
 
-module.exports = create;
+module.exports = createComment;

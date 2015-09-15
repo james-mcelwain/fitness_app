@@ -1,6 +1,6 @@
 var Comments = require('../models/comments');
 
-var delete = function(commentId){
+var deleteComment = function(commentId){
 
     Comments.findByIdAndRemove(commentId, function(err, comment){
         if(err){
@@ -13,4 +13,4 @@ var delete = function(commentId){
 };
 
 
-module.exports = delete;
+module.exports = deleteComment;

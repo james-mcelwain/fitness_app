@@ -4,11 +4,73 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+//passport and mongoose modules that are being used for login and registering
+var passport = require('passport');
+var session = require('express-session');
+var localStrategy = require('passport-local');
+var flash = require('connect-flash');
+var Users = require('./models/user');
+var mongoose = require('mongoose');
 
+//routes for login and registering
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var register = require('./routes/register');
+var login = require('./routes/login');
+
+//connect to mongo/account_info
+var mongoURI = 'mongodb://localhost:27017/account_info';
+var MongoDB = mongoose.connect(mongoURI).connection;
+MongoDB.on('error', function (err) {
+   console.log('mongodb connection error', err);
+});
+MongoDB.once('open', function () {
+ console.log('mongodb connection open');
+});
 
 var app = express();
+
+//passport session set up, init, and flash for login
+app.use(session({
+  secret: 'SoSupersecret',
+  key: 'user',
+  resave: true,
+  saveUninitialized: false,
+  cookie: {maxage: 60000, secure: false}
+}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+
+//local strategy for passport
+passport.use('local', new localStrategy({
+       passReqToCallback : true,
+       usernameField: 'username'
+   },
+function(req, username, password, done){
+   Users.findOne({ username: username }, function(err, user) {
+       if (err) throw err;
+       if (!user)
+           return done(null, false, {message: 'Incorrect username and password.'});
+
+       user.comparePassword(password, function(err, isMatch) {
+           if (err) throw err;
+           if(isMatch)
+               return done(null, user);
+           else
+               return done(null, false, { message: 'Incorrect username and password.'});
+       });
+   });
+}));
+//serializeUser and deserializeUser for login stuff
+passport.serializeUser(function(user, done){
+  done(null, user.id);
+});
+passport.deserializeUser(function(id, done){
+  User.findById(id, function(err, user){
+    if (err) done(err);
+    done(null, user);
+  })
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,7 +85,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/register', register);
+app.use('/login', login)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

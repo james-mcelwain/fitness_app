@@ -4,6 +4,12 @@ var User = require('../models/user');
 var path = require('path')
 var mongoose = require('mongoose');
 
+//if partial views are in public file this won't be needed
+// router.get('/', function(req, res, next){
+//   var file = path.join(__dirname, '../views/register.html');
+//   res.send(file);
+// })
+
 //create users and send a 200 status if successful, if user exists this will respond with 'already exists'
 router.post('/', function(req, res, next){
   User.create(req.body, function(err, post){

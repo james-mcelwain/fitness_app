@@ -1,15 +1,18 @@
 var express = require('express');
 var router = express.Router();
+
+// require database queries
 var getCommentsByActivity = require('../queries/getCommentsByActivity.js');
 var createComment = require('../queries/createComment.js');
 var deleteComment = require('../queries/deleteComment.js');
 
-
-
 /* GET route */
 // get comments for activity
 router.get('/:activity_id', function(req, res, next) {
+
+    // need to apply moment.js
     var comments = JSON.stringify(getCommentsByActivity(req.params.activity_id));
+    console.log(comments);
     res.json(comments)
 });
 

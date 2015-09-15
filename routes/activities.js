@@ -30,9 +30,18 @@ router.put('/activities', function(req, res, next) {
     res.sendfile(path.join(__dirname, '../views/userPage.html'));
     if(req.isAuthenticated()==true){
         var currentUser = req.user;
+        //
+        Activities.findByIdAndUpdate(_id,{duration:req.body.duration,distance:req.body.distance,units:req.body.units,effort:req.body.effort,activity_type:req.body.activity_type,date:req.body.date,summary:req.body.summary},function(err,activities) {
 
+        if (err)
+            next(err);
+        else
+            res.send('There was an error with your request');
 
-    }
+        res.sendfile(path.join(__dirname, '../views/userPage.html'));
+    })
+
+}
 });
 
 //this will allow users to post new activites based on username and id
@@ -42,7 +51,7 @@ router.post('/activities', function(req, res, next) {
         var currentUser = req.user;
 
 
-       Activity.create({activity:req.body},function (err,post) {
+       Activity.create({activity:req.body},function (err,activities) {
            if (err)
                next(err);
            else

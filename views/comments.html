@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html ng-app="fitnessApp" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fitness App</title>
+</head>
+<body>
+    <div ng-controller="fitnessController" class="comments">
+        <div data-id="{{}}" class="commentList" ng-repeat="comment in comments">
+            <p>{{username}}</p>
+            <p>{{date}}</p>
+            <p>{{comment}}</p>
+            <button ng-click="deleteComment({{id}})">DELETE</button>
+        </div>
+        <div>
+            <form>
+                <input ng-model="comment" type="text" name="Comment">
+                <input ng-click="addComment($event)" type="submit" name="SUBMIT">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

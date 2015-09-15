@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var getCommentsByActivity = require('./queries/getCommentsByActivity.js');
-var createComment = require('./queries/createComment.js');
-var deleteComment = require('./queries/deleteComment.js');
+var getCommentsByActivity = require('../queries/getCommentsByActivity.js');
+var createComment = require('../queries/createComment.js');
+var deleteComment = require('../queries/deleteComment.js');
+
+
 
 /* GET route */
 // get comments for activity

@@ -6,8 +6,6 @@ var deleteComment = function(commentId){
         if(err){
             console.log(err);
             next(err);
-        } else {
-            res.json({ message: 'Comment deleted.'})
         }
     })
 };

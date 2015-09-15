@@ -7,8 +7,6 @@ var createComment = function(userId, activityId, comment){
         if(err){
             console.log(err);
             next(err);
-        } else {
-            res.json({ message: 'Comment created.'})
         }
     })
 };

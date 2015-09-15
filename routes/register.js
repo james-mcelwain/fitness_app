@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 var path = require('path')
+var mongoose = require('mongoose');
 
 
 router.get('/', function(req, res, next) {

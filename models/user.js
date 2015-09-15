@@ -1,13 +1,12 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     bcrypt = require('bcrypt'),
-    SALT_WORK_FACTOR = 12,
+    SALT_WORK_FACTOR = 12;
 
 var UserSchema = new Schema({
     username: { type: String, required: true, index: {unique: true} },
     password: { type: String, required: true },
     blocked: []
-
 });
 
 UserSchema.pre('save', function(next){

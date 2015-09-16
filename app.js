@@ -4,11 +4,23 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+//passport and mongoose modules that are being used for login and registering
+var passport = require('passport');
+var session = require('express-session');
+var localStrategy = require('passport-local');
+var flash = require('connect-flash');
+var Users = require('./models/user');
 var mongoose = require('mongoose');
+//var users = require('./routes/users');
+var comments = require('./routes/comments');
 
+//routes for login and registering
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var stats = require('./routes/statistics');
+var register = require('./routes/register');
+var login = require('./routes/login');
+var privateviews = require('./routes/privateviews');
 
 // mongo connectionnpm
 
@@ -24,9 +36,53 @@ MongoDB.once('open', function(){
 
 var app = express();
 
+//passport session set up, init, and flash for login
+app.use(session({
+  secret: 'SoSupersecret',
+  key: 'user',
+  resave: true,
+  saveUninitialized: false,
+  cookie: {maxage: 60000, secure: false}
+}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+
+//local strategy for passport
+passport.use('local', new localStrategy({
+       passReqToCallback : true,
+       usernameField: 'username'
+   },
+function(req, username, password, done){
+   Users.findOne({ username: username }, function(err, user) {
+       if (err) throw err;
+       if (!user)
+           return done(null, false, {message: 'Incorrect username and password.'});
+
+       user.comparePassword(password, function(err, isMatch) {
+           if (err) throw err;
+           if(isMatch)
+               return done(null, user);
+           else
+               return done(null, false, { message: 'Incorrect username and password.'});
+       });
+   });
+}));
+//serializeUser and deserializeUser for login stuff
+passport.serializeUser(function(user, done){
+  done(null, user.id);
+});
+passport.deserializeUser(function(id, done){
+  Users.findById(id, function(err, user){
+    if (err) done(err);
+    done(null, user);
+  })
+});
+
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'html');
+
+app.set('partials', path.join(__dirname, 'partials'));
+app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -37,8 +93,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
+
 app.use('/stats', stats);
+app.use('/register', register);
+app.use('/partials', privateviews);
+app.use('/login', login);
+//app.use('/users', users);
+app.use('/comments', comments);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

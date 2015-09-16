@@ -35,8 +35,9 @@ router.delete('/:comment_id', function(req, res, next) {
     });
 });
 
+/* PATCH route */
+// add user to blocked user array in user model when block is clicked from comment
 router.patch('/:user_id', function(req,res,next){
-
     blockUser(req.params.user_id, "blockedUserIdGoesHere", function(blockedId){
         res.sendStatus(200);
     })

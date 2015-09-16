@@ -1,6 +1,3 @@
-/**
- * Created by Mothra on 9/15/15.
- */
 var app = angular.module('routingApp', ['ngRoute']);
 
 app.config(function($routeProvider, $locationProvider){

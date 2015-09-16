@@ -4,7 +4,7 @@ var path = require('path');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  var file = path.join(__dirname, '../views/index.html')
+  var file = path.join(__dirname, '../partials/index.html')
   res.sendFile(file);
 });
 

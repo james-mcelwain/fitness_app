@@ -4,9 +4,9 @@ var User = require('../models/user');
 var path = require('path')
 var mongoose = require('mongoose');
 
-//if partial views are in public file this won't be needed
+//if partial partials are in public file this won't be needed
 // router.get('/', function(req, res, next){
-//   var file = path.join(__dirname, '../views/register.html');
+//   var file = path.join(__dirname, '../partials/register.html');
 //   res.send(file);
 // })
 

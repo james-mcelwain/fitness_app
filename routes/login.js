@@ -3,9 +3,9 @@ var router = express.Router();
 var passport = require('passport');
 var path = require('path');
 
-//if partial views are in public file this won't be needed
+//if partial partials are in public file this won't be needed
 // router.get('/', function(req, res, next){
-//   var file = path.join(__dirname, '../views/login.html');
+//   var file = path.join(__dirname, '../partials/login.html');
 //   res.send(file);
 // })
 

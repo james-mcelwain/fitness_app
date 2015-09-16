@@ -1,0 +1,14 @@
+<div class="panel panel-primary">
+	<form ng-controller="registerController">
+		<fieldset>
+			<div class="panel-heading panel-primary"><legend>Register</legend></div>
+			<div class="panel-body">
+				<input ng-model="username" type="text" name="username" placeholder="Username">
+				<input ng-model="password" type="password" name="password" placeholder="Password">
+				<input ng-model="confirm-password" type="password" name="password" placeholder="Confirm Password">
+				<input type="submit" ng-click="register()" value="Log In">
+			</div>
+		</fieldset>
+	</form>
+
+</div>

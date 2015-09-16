@@ -7,7 +7,7 @@ app.controller('fitnessController', function ($scope, $http) {
 	});
 	// create comment
 	$scope.addComment = function () {
-		$http.post('/comment', {text: $scope.comment})
+		$http.post('/comments', {text: $scope.comment})
 			.then(function (data) {
 				$scope.comments = data.data;
 			});
@@ -15,13 +15,13 @@ app.controller('fitnessController', function ($scope, $http) {
 	// get all comments for activity
 	// need to get id of activity -- from activities detail page
 	$scope.getComment = function () {
-		$http.get('/comment/'+ id).then(function (data) {
+		$http.get('/comments/'+ id).then(function (data) {
 			$scope.comments = data.data;
 		});
 	};
 	// delete comment by id
 	$scope.deleteComment = function (id) {
-		$http.delete('/comment/'+ id)
+		$http.delete('/comments/'+ id)
 			.then(function (data) {
 				$scope.comments = data.data;
 			});

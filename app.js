@@ -11,6 +11,8 @@ var localStrategy = require('passport-local');
 var flash = require('connect-flash');
 var Users = require('./models/user');
 var mongoose = require('mongoose');
+//var users = require('./routes/users');
+var comments = require('./routes/comments');
 
 //routes for login and registering
 var routes = require('./routes/index');
@@ -27,6 +29,7 @@ MongoDB.on('error', function (err) {
 MongoDB.once('open', function () {
  console.log('mongodb connection open');
 });
+
 
 var app = express();
 
@@ -89,6 +92,8 @@ app.use('/', routes);
 app.use('/register', register);
 app.use('/partials', privateviews);
 app.use('/login', login);
+//app.use('/users', users);
+app.use('/comments', comments);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

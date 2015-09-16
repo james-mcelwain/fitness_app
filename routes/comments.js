@@ -11,7 +11,9 @@ var deleteComment = require('../queries/deleteComment.js');
 router.get('/:activity_id', function(req, res, next) {
 
 
-    getCommentsByActivity(req.params.activity_id, function(comments){
+    var blockedIds = req.user.blocked;
+
+    getCommentsByActivity(req.params.activity_id, blockedIds, function(comments){
         res.json(comments);
     });
 });

@@ -1,9 +1,9 @@
 var Comments = require('../models/comments');
 var moment = require('moment');
 
-var getComments = function(activityId, callback){
+var getComments = function(activityId, blockedIDs, callback){
 
-    Comments.find({ activity_id: activityId }, function(err, comments){
+    Comments.find({ activity_id: activityId, user_id: { "$nin" : blockedIDs } }, function(err, comments){
         if(err){
             console.log(err);
             next(err);
@@ -26,8 +26,6 @@ var getComments = function(activityId, callback){
             // push new comment objects with pretty dates into updated comments array
             updatedComments.push(updatedComment);
         }
-
-        console.log(updatedComments);
 
         callback(updatedComments);
     });

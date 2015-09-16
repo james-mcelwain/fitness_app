@@ -18,6 +18,7 @@ var getComments = function(activityId, blockedIDs, callback){
             // create new comment object with pretty dates
             var updatedComment = {
                 _id: comments[i]._id,
+                user_id: comments[i].user_id,
                 activity_id: comments[i].activity_id,
                 comment: comments[i].comment,
                 date: moment(comments.date).format("MMM Do YY")

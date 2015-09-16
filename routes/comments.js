@@ -5,13 +5,14 @@ var router = express.Router();
 var getCommentsByActivity = require('../queries/getCommentsByActivity.js');
 var createComment = require('../queries/createComment.js');
 var deleteComment = require('../queries/deleteComment.js');
+var blockUser = require('../queries/blockUser');
 
 /* GET route */
 // get comments for activity
 router.get('/:activity_id', function(req, res, next) {
 
-
-    var blockedIds = req.user.blocked;
+    //TODO: replace empty array with req.user.blocked, empty array is for test purposes
+    var blockedIds = [];
 
     getCommentsByActivity(req.params.activity_id, blockedIds, function(comments){
         res.json(comments);
@@ -32,6 +33,13 @@ router.delete('/:comment_id', function(req, res, next) {
     deleteComment(req.params.comment_id, function(comment){
         res.sendStatus(200);
     });
+});
+
+router.patch('/:user_id', function(req,res,next){
+
+    blockUser(req.params.user_id, "blockedUserIdGoesHere", function(blockedId){
+        res.sendStatus(200);
+    })
 });
 
 module.exports = router;

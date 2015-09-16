@@ -19,7 +19,7 @@ app.config(function($routeProvider, $locationProvider){
 });
 
 
-app.controller('loginController', function($scope){
+app.controller('loginController', function($scope, $http, $location){
     $scope.login = function() {
         $http.post('/login', {username: $scope.username, password: $scope.password}).
             then(function (response) {
@@ -33,7 +33,7 @@ app.controller('loginController', function($scope){
     }
 });
 
-app.controller('registerController', function($scope){
+app.controller('registerController', function($scope, $http, $location){
     $scope.register = function() {
         if ($scope.password != $scope.confirmPassword) {
             $scope.message = "passwords do not match";

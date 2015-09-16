@@ -9,11 +9,10 @@ var deleteComment = require('../queries/deleteComment.js');
 /* GET route */
 // get comments for activity
 router.get('/:activity_id', function(req, res, next) {
-
     // need to apply moment.js
-    var comments = JSON.stringify(getCommentsByActivity(req.params.activity_id));
-    console.log(comments);
-    res.json(comments)
+    getCommentsByActivity(req.params.activity_id, function(comments){
+        res.json(comments);
+    });
 });
 
 /* POST route */
@@ -27,8 +26,9 @@ router.post('/:activity_id', function(req, res, next) {
 /* DELETE route */
 // delete comment from activity
 router.delete('/:comment_id', function(req, res, next) {
-    deleteComment(req.params.comment_id);
-    res.sendStatus(200);
+    deleteComment(req.params.comment_id, function(comment){
+        res.sendStatus(200);
+    });
 });
 
 module.exports = router;

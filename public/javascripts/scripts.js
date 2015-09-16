@@ -19,29 +19,34 @@ app.config(function($routeProvider, $locationProvider){
 });
 
 
-app.controller('loginController', function($scope){
-    $http.POST('/login').
-        then(function(response) {
-            $location.path('/home');
-        }, function(response) {
-            $scope.message = "Incorrect username or password";
-            $scope.errClass = true;
-        });
-});
-
-app.controller('registerController', function($scope){
-    if($scope.password != $scope.confirm-password){
-        $scope.message = "passwords do not match";
-    } else {
-        $http.POST('/register').
+app.controller('loginController', function($scope, $http, $location){
+    $scope.login = function() {
+        $http.post('/login', {username: $scope.username, password: $scope.password}).
             then(function (response) {
-                $location.path('/login');
-            }, function (response) {
-                if (response.data = "Exists"){
-                    $scope.message = "user already exists";
+                if(response.status == 401){
+                    $scope.message = "Incorrect username or password";
                     $scope.errClass = true;
+                } else {
+                    $location.path('/home');
                 }
             });
+    }
+});
 
+app.controller('registerController', function($scope, $http, $location){
+    $scope.register = function() {
+        if ($scope.password != $scope.confirmPassword) {
+            $scope.message = "passwords do not match";
+        } else {
+            $http.post('/register', {username: $scope.username, password: $scope.password}).
+                then(function (response) {
+                    if (response.data == "Exists") {
+                        $scope.message = "user already exists";
+                        $scope.errClass = true;
+                    } else {
+                        $location.path('/login');
+                    }
+                });
+        }
     }
 });

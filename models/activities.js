@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema();
+var Schema = mongoose.Schema;
 
 var ActivitiesSchema = new Schema({
     user_id: {type: String, required: true},
@@ -7,7 +7,7 @@ var ActivitiesSchema = new Schema({
     distance: Number,
     units: String,
     effort: String,
-    activity_type: String,
+    activity: String,
     date: Date,
     summary: String
 });

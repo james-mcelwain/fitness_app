@@ -2,7 +2,8 @@ var express = require('express'),
     router = express.Router(),
     mongoose = require('mongoose'),
     Stats = require('../models/statistics'),
-    Activities = require('../models/activities');
+    Activities = require('../models/activities'),
+    tests = require('./tests/statsTests');
 
 // EXTERNAL API
 
@@ -14,6 +15,12 @@ router.get('/allstats', function( req , res, next ){
 router.get('/statsbyrange', function( req, res , next ){
 
 
+});
+
+router.post('/statstest', function( req, res, next ){
+    var number = req.body.number;
+    console.log("Number to create: ", number);
+    tests.tests(number);
 });
 
 

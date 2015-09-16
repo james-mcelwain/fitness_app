@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
     Activity = require('../models/activities'),
     chance = require('chance');
 
-function activityTestWrite(numCreate) {
+var activityTestWrite = function(numCreate) {
 
     var numberToCreate = numCreate;
 
@@ -55,4 +55,4 @@ function activityTestWrite(numCreate) {
     });
 }
 
-module.exports = activityTestWrite();
+module.exports.tests = activityTestWrite;

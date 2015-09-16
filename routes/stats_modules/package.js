@@ -1,4 +1,4 @@
-var calc = require('./calc.js');
+var calc = require('./calc');
 
 var packageStats = function( array ){
     return {
@@ -14,4 +14,4 @@ var packageStats = function( array ){
     }
 };
 
-module.exports = packageStats;
+module.exports.package = packageStats;

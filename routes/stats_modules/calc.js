@@ -76,4 +76,4 @@ var calc = {
     }
 };
 
-module.exports = calc;
+module.exports.calc = calc;

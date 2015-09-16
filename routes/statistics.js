@@ -41,11 +41,12 @@ function queryActivitiesByDateRange( user_id, beginDate, endDate ){
         activitiesByRange = activities;
     })
 }
+
 function packageStats( array ){
     return {
         totalTimeExercised: totalTimeExcer( array ),
         averageTimeExercised: "",
-        totalActivities: PARAM.length,
+        totalActivities: array.length,
         averageActivityTime: avgActivityTime( array ),
         mostFrequentActivity: mostFreqAct( array ),
         personalRecords: {
@@ -101,7 +102,7 @@ function totalTimeExcer( array ){
 function avgActivityTime( array ){
     var totalTime = 0;
     array.forEach(function( item, index ){
-       totalTime += item.duration;
+        totalTime += item.duration;
     });
     var avgTime = totalTime/array.length;
     return avgTime;
@@ -113,9 +114,8 @@ function longestDistance( array ){
     array.forEach(function( item, index ){
         distArray.push(item.distance)
     });
-    maxDistance = function(distArray) {
-        return Math.max.apply(null, distArray);
-    };
+    maxDistance = Math.max.apply(null, distArray);
+
     activityName = array[distArray.indexOf(maxDistance)].activity_type;
 
     return {activity_type: activityName, distance: maxDistance}
@@ -127,9 +127,8 @@ function longestDuration( array ){
     array.forEach(function( item, index ){
         timeArray.push(item.duration)
     });
-    maxDuration = function(timeArray) {
-        return Math.max.apply(null, timeArray);
-    };
+    maxDuration = Math.max.apply(null, timeArray);
+
     activityName = array[timeArray.indexOf(maxDuration)].activity_type;
 
     return {activity_type: activityName, duration: maxDuration}

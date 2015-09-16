@@ -4,9 +4,23 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+
+// mongo connectionnpm
+
+var mongoURI = "mongodb://localhost:27017/fitness_app",
+    MongoDB = mongoose.connect(mongoURI).connection;
+
+MongoDB.on('error', function(err){
+  console.log("Mongodb connection error", err);
+});
+MongoDB.once('open', function(){
+  console.log("Mongodb connection open");
+});
+
 
 var app = express();
 

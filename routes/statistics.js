@@ -3,17 +3,46 @@ var express = require('express'),
     mongoose = require('mongoose'),
     Stats = require('../models/statistics'),
     Activities = require('../models/activities'),
-    tests = require('./tests/statsTests');
+    tests = require('./tests/statsTests'),
+    pack = require('./stats_modules/package');
 
 // EXTERNAL API
 
-router.post('/statstest', function( req, res, next ){
-    var number = req.body.number;
-    number = parseInt(number);
-    console.log("Number to create: ", number);
-    tests.tests(number);
 
-    res.sendStatus(200);
+// generates test activities
+
+//router.post('/statstest', function( req, res, next ){
+//    var number = req.body.number;
+//    number = parseInt(number);
+//    console.log("Number to create: ", number);
+//    tests.tests(number);
+//
+//    res.sendStatus(200);
+//});
+
+router.post('/all', function( req, res, next ){
+    var date1 = req.body.user_created;
+    var year1 = parseInt(date1.slice(0, 4));
+    var month1 = parseInt(date1.slice(6, 7));
+    var day1 = parseInt(date1.slice(9, 10));
+
+    var created_date = new Date(year1, month1, day1);
+
+    var range = (Date.now() - created_date);
+
+    Activities.find({"user_id": req.body.user_id, "date": {"$lt": Date.now()}}, function( err, activities ){
+        if(err){
+            console.log(err);
+            res.send("No user at ID");
+        } else {
+            if(activities.length == 0){
+                console.log('no user at id');
+                res.send('no user at id');
+            }else {
+                res.send(pack.package(activities, range));
+            }
+        }
+    });
 });
 
 router.post('/byrange', function( req, res, next ){
@@ -37,10 +66,18 @@ router.post('/byrange', function( req, res, next ){
     date2 = new Date(year2, month2, day2);
     var range = date2 - date1;
 
-    console.log(range);
-    Activities.find({"date": {"$gte": new Date(year1, month1, day1), "$lt": new Date(year2, month2, day2)}}, function( err, activities ){
-        //activitiesByRange = activities;
-        res.send(activities);
+    Activities.find({"user_id": req.body.user_id, "date": {"$gte": new Date(year1, month1, day1), "$lt": new Date(year2, month2, day2)}}, function( err, activities ){
+        if(err){
+            console.log(err);
+            res.send("No user at ID");
+        } else {
+            if(activities.length == 0){
+                console.log('no user at id');
+                res.send('no user at id');
+            }else {
+                res.send(pack.package(activities, range));
+            }
+        }
     });
 });
 

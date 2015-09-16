@@ -123,7 +123,9 @@ var calc = {
 
             }
         }
+
+        return returnObj;
     }
 };
 
-module.exports.calc = calc;
+module.exports = calc;

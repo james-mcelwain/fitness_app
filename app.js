@@ -16,20 +16,22 @@ var comments = require('./routes/comments');
 
 //routes for login and registering
 var routes = require('./routes/index');
+var stats = require('./routes/statistics');
 var register = require('./routes/register');
 var login = require('./routes/login');
 var privateviews = require('./routes/privateviews');
 
-//connect to mongo/account_info
-var mongoURI = 'mongodb://localhost:27017/account_info';
-var MongoDB = mongoose.connect(mongoURI).connection;
-MongoDB.on('error', function (err) {
-   console.log('mongodb connection error', err);
-});
-MongoDB.once('open', function () {
- console.log('mongodb connection open');
-});
+// mongo connectionnpm
 
+var mongoURI = "mongodb://localhost:27017/fitness_app",
+    MongoDB = mongoose.connect(mongoURI).connection;
+
+MongoDB.on('error', function(err){
+  console.log("Mongodb connection error", err);
+});
+MongoDB.once('open', function(){
+  console.log("Mongodb connection open");
+});
 
 var app = express();
 
@@ -77,8 +79,13 @@ passport.deserializeUser(function(id, done){
 });
 
 // view engine setup
-app.set('partials', path.join(__dirname, 'partials'));
-app.set('view engine', 'jade');
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'html');
+
+//app.set('partials', path.join(__dirname, 'partials'));
+//app.set('view engine', 'jade');
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -89,6 +96,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+
+app.use('/stats', stats);
 app.use('/register', register);
 app.use('/partials', privateviews);
 app.use('/login', login);
@@ -120,9 +129,9 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.render('error', {
+  res.send('error', {
     message: err.message,
-    error: {}
+    error:{}
   });
 });
 

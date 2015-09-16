@@ -47,3 +47,9 @@ li {
 .btn-primary
 {margin: 40px;
 }
+
+.block {
+  position: absolute;
+  z-index: 100;
+}
+

@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="routingApp">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Fitness App</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <base href='/'>
 </head>
 <body>
-Hello World
-
 <a href="/views/activities_list.html">Activities List</a>
+<div ng-view>
+</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-route.min.js"></script>
+<!-- <script type="text/javascript" src="/javascripts/bootstrap.min.js"></script> -->
+<script type="text/javascript" src="/javascripts/scripts.js"></script>
 </body>
 </html>

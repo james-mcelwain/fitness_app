@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="fitnessApp" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fitness App</title>
+</head>
+<body>
+    <div ng-controller="fitnessController" class="comments">
+        <div  class="commentList" ng-repeat="comment in comments">
+            <p ng-mouseover="showBlock()" ng-mouseleave="hideBlock()">{{username}}</p>
+            <div class="block" ng-show="blockVisible">
+                <button ng-click="blockUser({{id}})">BLOCK</button>
+            </div>
+            <p>{{date}}</p>
+            <p>{{comment}}</p>
+            <button ng-click="deleteComment({{id}})">DELETE</button>
+        </div>
+        <div>
+            <form>
+                <input ng-model="comment" type="text" name="Comment">
+                <input ng-click="addComment($event)" type="submit" name="SUBMIT">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

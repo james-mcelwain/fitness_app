@@ -40,7 +40,7 @@ app.controller('registerController', function($scope, $http, $location){
         } else {
             $http.post('/register', {username: $scope.username, password: $scope.password}).
                 then(function (response) {
-                    if (response.data = "Exists") {
+                    if (response.data == "Exists") {
                         $scope.message = "user already exists";
                         $scope.errClass = true;
                     } else {

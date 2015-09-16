@@ -49,9 +49,7 @@ router.post('/activities', function(req, res, next) {
 
     if(req.isAuthenticated()==true){
         var currentUser = req.user;
-
-
-       Activity.create({activity:req.body},function (err,activities) {
+       Activity.create(req.body, function (err,activities) {
            if (err)
                next(err);
            else

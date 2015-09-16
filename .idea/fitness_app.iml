@@ -4,5 +4,9 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+<<<<<<< HEAD
+=======
+    <orderEntry type="library" name="fitness_app node_modules" level="project" />
+>>>>>>> 235434a3e9077e4fbb42ab0c6e5bc58a72c77f28
   </component>
 </module>

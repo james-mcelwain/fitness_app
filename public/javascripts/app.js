@@ -7,7 +7,7 @@
 //create controller for ng-controller
 
 
-        app.controller(['$scope','$http', function($scope, $http){
+        app.controller('myCtrl', ['$scope','$http', function($scope, $http){
 
 
 //call for activities
@@ -27,10 +27,12 @@
 
             $scope.post(function(obj){
                 $http.post('/activities', {
-                    activity: obj.activity,
+                    username: obj.username,
+                    activity: activity_type,
                     date: obj.date,
                     effort: obj.effort,
                     distance: obj.distance,
+                    units: units,
                     duration: obj.duration,
                     summary: obj.summary
                 });
@@ -57,6 +59,7 @@
 
             $scope.put(function(obj){
                 $http.put('/activities', {
+                    activityId: activity._id
                     activity: obj.activity,
                     date: obj.date,
                     effort: obj.effort,

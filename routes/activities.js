@@ -13,7 +13,7 @@ router.get('/activities', function(req, res, next) {
         Activities.find({user_id: currentUser._id}, function (err, activities) {
 
             console.log(activities);
-            res.sendFile(path.join(__dirname, '../views/userPage.html', {currentUser: currentUser}, {activities: activities}));
+            res.jason({currentUser: currentUser}, {activities: activities});
 
             if (err)
                 next(err);
@@ -22,7 +22,6 @@ router.get('/activities', function(req, res, next) {
         })
     }
 });
-
 
 
 //This will allow the user to update the activities by id

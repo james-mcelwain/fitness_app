@@ -16,7 +16,6 @@ var comments = require('./routes/comments');
 
 //routes for login and registering
 var routes = require('./routes/index');
-var users = require('./routes/users');
 var stats = require('./routes/statistics');
 var register = require('./routes/register');
 var login = require('./routes/login');

@@ -16,6 +16,7 @@ var mongoose = require('mongoose');
 var routes = require('./routes/index');
 var register = require('./routes/register');
 var login = require('./routes/login');
+var privateviews = require('./routes/privateviews');
 
 //connect to mongo/account_info
 var mongoURI = 'mongodb://localhost:27017/account_info';
@@ -66,7 +67,7 @@ passport.serializeUser(function(user, done){
   done(null, user.id);
 });
 passport.deserializeUser(function(id, done){
-  User.findById(id, function(err, user){
+  Users.findById(id, function(err, user){
     if (err) done(err);
     done(null, user);
   })
@@ -86,7 +87,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/register', register);
-app.use('/login', login)
+app.use('/views', privateviews);
+app.use('/login', login);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

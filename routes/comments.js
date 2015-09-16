@@ -9,6 +9,7 @@ var deleteComment = require('../queries/deleteComment.js');
 /* GET route */
 // get comments for activity
 router.get('/:activity_id', function(req, res, next) {
+
     // need to apply moment.js
     getCommentsByActivity(req.params.activity_id, function(comments){
         res.json(comments);

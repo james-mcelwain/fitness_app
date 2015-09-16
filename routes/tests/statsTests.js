@@ -26,7 +26,7 @@ var activityTestWrite = function(numCreate) {
     }
 
     for (var i = 0; i < numberToCreate; i++) {
-        var activity = new ActivityObj(i, randomInt(1, 100), randomInt(1, 50), 'miles', 'super hard', activity_types[randomInt(0, 4)], chance.date({year: 2001}), 'summary');
+        var activity = new ActivityObj(1, randomInt(1, 100), randomInt(1, 50), 'miles', 'super hard', activity_types[randomInt(0, 4)], chance.date({year: 2001}), 'summary');
 
         activityArray.push(activity);
     }

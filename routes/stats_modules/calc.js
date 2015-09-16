@@ -73,6 +73,56 @@ var calc = {
 
     return {activity_type: activityName, duration: maxDuration}
 
+    },
+
+    averageByRange: function( array, range ){
+        var returnObj = {};
+
+        var dateRange = range / 86400000;
+
+        returnObj.year = findAvg("year");
+        returnObj.month = findAvg("month");
+        returnObj.day = findAvg("day");
+
+        function findAvg(param){
+
+            switch (param){
+                case "year":
+                        if((dateRange/365) < 1 ){
+                            return null;
+                        } else {
+                            var years = dateRange / 365;
+                            var totalTime = 0;
+                            array.forEach(function(item, index){
+                                totalTime += item.duration;
+                            });
+
+                            return totalTime / years;
+                        }
+                case "month":
+                    if((dateRange/31) < 1 ){
+                        return null;
+                    } else {
+                        var months = dateRange / 30;
+                        var totalTime = 0;
+                        array.forEach(function(item, index){
+                            totalTime += item.duration;
+                        });
+
+                        return totalTime / months;
+                    }
+                    case "day":
+                            var totalTime = 0;
+                            array.forEach(function(item, index){
+                                totalTime += item.duration;
+                            });
+
+                            return totalTime / dateRange;
+                default:
+                    console.log("incorrect argument passed")
+
+            }
+        }
     }
 };
 

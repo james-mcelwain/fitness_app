@@ -7,20 +7,13 @@ var express = require('express'),
 
 // EXTERNAL API
 
-router.get('/allstats', function( req , res, next ){
-
-
-});
-
-router.get('/statsbyrange', function( req, res , next ){
-
-
-});
-
 router.post('/statstest', function( req, res, next ){
     var number = req.body.number;
+    number = parseInt(number);
     console.log("Number to create: ", number);
     tests.tests(number);
+
+    res.sendStatus(200);
 });
 
 
@@ -28,7 +21,7 @@ router.post('/statstest', function( req, res, next ){
 
 var allActivitiesById = [];
 
-function queryAllActivitiesById( user_id ){
+function c( user_id ){
     Activities.find({'Activites.user_id' : req.body.user_id }, function( err, activities ){
         if ( err ){
             console.log( err );
@@ -46,3 +39,4 @@ function queryActivitiesByDateRange( user_id, beginDate, endDate ){
     })
 }
 
+module.exports = router;

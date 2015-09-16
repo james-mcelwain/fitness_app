@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var stats = require('./routes/statistics');
 
 // mongo connectionnpm
 
@@ -20,7 +21,6 @@ MongoDB.on('error', function(err){
 MongoDB.once('open', function(){
   console.log("Mongodb connection open");
 });
-
 
 var app = express();
 
@@ -38,6 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/stats', stats);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
